@@ -52,6 +52,10 @@ public class FrozedLib {
         plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new TPSUtils(), 1, 1);
     }
 
+    public void checkAuthors(String... strings){
+
+    }
+
     public void setExcludeCommandConfig(FileConfig fileConfig, String path) {
         this.excludeCommandFile = fileConfig;
         this.excludeCommandsPath = path;
