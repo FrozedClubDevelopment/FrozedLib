@@ -9,9 +9,12 @@ import club.frozed.lib.item.ItemCreator;
 import club.frozed.lib.utils.TPSUtils;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -52,8 +55,25 @@ public class FrozedLib {
         plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new TPSUtils(), 1, 1);
     }
 
-    public void checkAuthors(String... strings){
+    public void loadCommandsInFile() {
+        commandFramework.loadCommandsInFile();
+    }
 
+    public void checkAuthors(String... strings) {
+        boolean passed = true;
+
+        for (String string : strings) {
+            if (!this.plugin.getDescription().getAuthors().contains(string)) {
+                passed = false;
+            }
+        }
+
+        if (!passed) {
+            Bukkit.getPluginManager().disablePlugin(this.plugin);
+            for (int i = 0; i < 25; i++) {
+                Bukkit.getConsoleSender().sendMessage(CC.translate("&cWhy are you changing the plugin.yml ( ͡° ͜ʖ ͡°)╭∩╮"));
+            }
+        }
     }
 
     public void setExcludeCommandConfig(FileConfig fileConfig, String path) {

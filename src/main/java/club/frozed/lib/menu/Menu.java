@@ -1,6 +1,6 @@
 package club.frozed.lib.menu;
 
-import club.frozed.core.Zoom;
+import club.frozed.lib.FrozedLib;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -99,7 +99,7 @@ public abstract class Menu {
         this.onOpen(player);
         this.setClosedByMenu(false);
         if (autoUpdate && task == null) {
-            task = Zoom.getInstance().getServer().getScheduler().runTaskTimer(Zoom.getInstance(), () -> {
+            task = FrozedLib.INSTANCE.getPlugin().getServer().getScheduler().runTaskTimer(FrozedLib.INSTANCE.getPlugin(), () -> {
                 this.openMenu(player);
             }, 0, 20L);
         }
@@ -163,7 +163,7 @@ public abstract class Menu {
         this.onOpen(use);
         this.setClosedByMenu(false);
         if (autoUpdate && task == null) {
-            task = Zoom.getInstance().getServer().getScheduler().runTaskTimer(Zoom.getInstance(), () -> {
+            task = FrozedLib.INSTANCE.getPlugin().getServer().getScheduler().runTaskTimer(FrozedLib.INSTANCE.getPlugin(), () -> {
                 this.openMenu(player);
             }, 0, 20L);
         }

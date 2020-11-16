@@ -1,6 +1,6 @@
 package club.frozed.lib.menu.pagination;
 
-import club.frozed.core.utils.CC;
+import club.frozed.lib.chat.CC;
 import club.frozed.lib.menu.Button;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;

@@ -1,6 +1,6 @@
 package club.frozed.lib.menu;
 
-import club.frozed.core.Zoom;
+import club.frozed.lib.FrozedLib;
 import club.frozed.lib.menu.pagination.PaginatedMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -63,7 +63,7 @@ public class ButtonListener implements Listener {
 				}
 
 				if (event.isCancelled()) {
-					Bukkit.getScheduler().runTaskLater(Zoom.getInstance(), () -> player.updateInventory(), 1L);
+					Bukkit.getScheduler().runTaskLater(FrozedLib.INSTANCE.getPlugin(), () -> player.updateInventory(), 1L);
 				}
 			} else {
 				if ((event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT || event.getAction().equals(InventoryAction.MOVE_TO_OTHER_INVENTORY) || event.getAction().equals(InventoryAction.HOTBAR_MOVE_AND_READD) || event.getAction().equals(InventoryAction.HOTBAR_SWAP))) {
@@ -88,7 +88,7 @@ public class ButtonListener implements Listener {
 			}
 		}
 
-		player.setMetadata("scanglitch", new FixedMetadataValue(Zoom.getInstance(), true));
+		player.setMetadata("scanglitch", new FixedMetadataValue(FrozedLib.INSTANCE.getPlugin(), true));
 	}
 
 	@EventHandler
@@ -96,7 +96,7 @@ public class ButtonListener implements Listener {
 		Player player = event.getPlayer();
 
 		if (player.hasMetadata("scanglitch")) {
-			player.removeMetadata("scanglitch", Zoom.getInstance());
+			player.removeMetadata("scanglitch", FrozedLib.INSTANCE.getPlugin());
 			for (ItemStack it : player.getInventory().getContents()) {
 				if (it != null) {
 					ItemMeta meta = it.getItemMeta();
