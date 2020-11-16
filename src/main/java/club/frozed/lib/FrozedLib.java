@@ -6,6 +6,7 @@ import club.frozed.lib.commands.CommandFramework;
 import club.frozed.lib.config.FileConfig;
 import club.frozed.lib.handler.RegisterHandler;
 import club.frozed.lib.item.ItemCreator;
+import club.frozed.lib.utils.TPSUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.plugin.Plugin;
@@ -42,35 +43,36 @@ public class FrozedLib {
     private FileConfig excludeCommandFile;
     private String excludeCommandsPath;
 
-    public FrozedLib(JavaPlugin plugin){
+    public FrozedLib(JavaPlugin plugin) {
         INSTANCE = this;
         this.plugin = plugin;
         this.registerHandler = new RegisterHandler(plugin);
         ItemCreator.registerGlow();
         this.commandFramework = new CommandFramework(plugin);
+        plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new TPSUtils(), 1, 1);
     }
 
-    public void setExcludeCommandConfig(FileConfig fileConfig, String path){
+    public void setExcludeCommandConfig(FileConfig fileConfig, String path) {
         this.excludeCommandFile = fileConfig;
         this.excludeCommandsPath = path;
         excludeCommands = true;
     }
 
-    public void registerCommands(BaseCommand... baseCommands){
-        for (BaseCommand baseCommand : baseCommands){
+    public void registerCommands(BaseCommand... baseCommands) {
+        for (BaseCommand baseCommand : baseCommands) {
             commandFramework.registerCommands(baseCommand, null);
         }
     }
 
-    public List<String> getExcludeCommandsList(){
+    public List<String> getExcludeCommandsList() {
         return excludeCommandFile.getStringList(excludeCommandsPath);
     }
 
-    public void loadListenersFromPackage(String packageName){
+    public void loadListenersFromPackage(String packageName) {
         registerHandler.loadListenersFromPackage(packageName);
     }
 
-    public void loadCommandsFromPackage(String packageName){
+    public void loadCommandsFromPackage(String packageName) {
         registerHandler.loadCommandsFromPackage(packageName);
     }
 }
