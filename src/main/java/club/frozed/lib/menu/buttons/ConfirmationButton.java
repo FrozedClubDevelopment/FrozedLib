@@ -1,6 +1,6 @@
 package club.frozed.lib.menu.buttons;
 
-import club.frozed.lib.color.CC;
+import club.frozed.lib.chat.CC;
 import club.frozed.lib.menu.Button;
 import club.frozed.lib.menu.callback.TypeCallback;
 import lombok.AllArgsConstructor;

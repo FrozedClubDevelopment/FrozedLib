@@ -1,6 +1,5 @@
 package club.frozed.lib.chat;
 
-import club.frozed.lib.color.CC;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.chat.ClickEvent;

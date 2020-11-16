@@ -1,7 +1,7 @@
 package club.frozed.lib.scoreboard;
 
 import club.frozed.lib.FrozedLib;
-import club.frozed.lib.color.CC;
+import club.frozed.lib.chat.CC;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

@@ -1,6 +1,6 @@
 package club.frozed.lib.config;
 
-import club.frozed.lib.color.CC;
+import club.frozed.lib.chat.CC;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

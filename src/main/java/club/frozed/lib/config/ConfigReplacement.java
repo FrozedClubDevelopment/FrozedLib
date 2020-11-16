@@ -1,6 +1,6 @@
 package club.frozed.lib.config;
 
-import club.frozed.lib.color.CC;
+import club.frozed.lib.chat.CC;
 
 import java.util.HashMap;
 import java.util.Map;

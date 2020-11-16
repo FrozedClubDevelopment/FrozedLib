@@ -1,6 +1,6 @@
 package club.frozed.lib;
 
-import club.frozed.lib.color.CC;
+import club.frozed.lib.chat.CC;
 import club.frozed.lib.commands.BaseCommand;
 import club.frozed.lib.commands.CommandFramework;
 import club.frozed.lib.config.FileConfig;
