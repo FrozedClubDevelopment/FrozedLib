@@ -89,6 +89,9 @@ public final class CC {
     public static final String ID_PURPLE = D_PURPLE + I;
     public static final String IL_PURPLE = L_PURPLE + I;
     public static final String SEPARATOR = CC.GRAY + CC.S + "---------------------";
+    public static String MENU_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH.toString() + "------------------------";
+    public static String CHAT_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH.toString() + "------------------------------------------------";
+    public static String MEDIUM_CHAT_BAR = ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH.toString() + "------------------------------";
 
     public static String translate(String in) {
         return ChatColor.translateAlternateColorCodes('&', in);
@@ -100,6 +103,10 @@ public final class CC {
         } else {
             return translate(in);
         }
+    }
+
+    public static String strip(String in) {
+        return ChatColor.stripColor(translate(in));
     }
 
     public static List<String> translate(List<String> lines) {

@@ -117,10 +117,13 @@ public class CommandFramework implements CommandExecutor {
             Method method = commandMap.get(key).getKey();
             Command command = method.getAnnotation(Command.class);
 
-            config.set(command.name() + ".PERMISSION", command.permission().isEmpty() || command.permission() == null ? "No available permission" : command.description());
+            config.set(command.name() + ".PERMISSION", command.permission().isEmpty() ? "No available permission" : command.permission());
             config.set(command.name() + ".ALIASES", command.aliases().length > 0 ? command.aliases() : "No available Aliases.");
             config.set(command.name() + ".USAGE", command.usage().isEmpty() ? "No available usage." : command.usage());
             config.set(command.name() + ".DESCRIPTION", command.description().isEmpty() ? "No available description" : command.description());
+            if (FrozedLib.INSTANCE.isExcludeCommands()){
+                config.set(command.name() + ".STATUS", FrozedLib.INSTANCE.getExcludeCommandsList().contains(command.name()) ? "DISABLED" : "ENABLED");
+            }
         });
         config.set("TOTAL-REGISTER-COMMANDS", config.getKeys(false).size());
         try {

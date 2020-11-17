@@ -59,7 +59,7 @@ public class FrozedLib {
         commandFramework.loadCommandsInFile();
     }
 
-    public void checkAuthors(String... strings) {
+    public boolean checkAuthors(String... strings) {
         boolean passed = true;
 
         for (String string : strings) {
@@ -74,6 +74,7 @@ public class FrozedLib {
                 Bukkit.getConsoleSender().sendMessage(CC.translate("&cWhy are you changing the plugin.yml ( ͡° ͜ʖ ͡°)╭∩╮"));
             }
         }
+        return passed;
     }
 
     public void setExcludeCommandConfig(FileConfig fileConfig, String path) {
