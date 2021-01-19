@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Entity;
+import org.bukkit.util.Vector;
 
 import java.util.*;
 
@@ -367,6 +368,51 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
         return new CuboidIterator(getWorld(), this.x1, this.y1, this.z1, this.x2, this.y2, this.z2);
     }
 
+    public Iterator<Location> locationIterator() {
+        return new CuboidLocationIterator(this.getWorld(), this.x1, this.y1, this.z1, this.x2, this.y2, this.z2);
+    }
+
+    public List<Vector> edges() {
+        return this.edges(-1, -1, -1, -1);
+    }
+
+    public Location getMinimumPoint() {
+        return new Location(this.getWorld(), (double) Math.min(this.x1, this.x2), (double) Math.min(this.y1, this.y2), (double) Math.min(this.z1, this.z2));
+    }
+
+    public Location getMaximumPoint() {
+        return new Location(this.getWorld(), (double) Math.max(this.x1, this.x2), (double) Math.max(this.y1, this.y2), (double) Math.max(this.z1, this.z2));
+    }
+
+    public List<Vector> edges(int fixedMinX, int fixedMaxX, int fixedMinZ, int fixedMaxZ) {
+        Vector v1 = getMinimumPoint().toVector();
+        Vector v2 = getMaximumPoint().toVector();
+        int minX = v1.getBlockX();
+        int maxX = v2.getBlockX();
+        int minZ = v1.getBlockZ();
+        int maxZ = v2.getBlockZ();
+        int capacity = (maxX - minX) * 4 + (maxZ - minZ) * 4;
+        ArrayList<Vector> result = new ArrayList<Vector>(capacity += 4);
+        if (capacity <= 0) {
+            return result;
+        }
+        int minY = v1.getBlockY();
+        int maxY = v1.getBlockY();
+        for (int x = minX; x <= maxX; ++x) {
+            result.add(new Vector(x, minY, minZ));
+            result.add(new Vector(x, minY, maxZ));
+            result.add(new Vector(x, maxY, minZ));
+            result.add(new Vector(x, maxY, maxZ));
+        }
+        for (int z = minZ; z <= maxZ; ++z) {
+            result.add(new Vector(minX, minY, z));
+            result.add(new Vector(minX, maxY, z));
+            result.add(new Vector(maxX, minY, z));
+            result.add(new Vector(maxX, maxY, z));
+        }
+        return result;
+    }
+
     public Cuboid clone() {
         return new Cuboid(this);
     }
@@ -513,4 +559,55 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
             throw new UnsupportedOperationException();
         }
     }
+
+    public class CuboidLocationIterator implements Iterator<Location> {
+
+        private final World world;
+        private final int baseX;
+        private final int baseY;
+        private final int baseZ;
+        private final int sizeX;
+        private final int sizeY;
+        private final int sizeZ;
+        private int x;
+        private int y;
+        private int z;
+
+        public CuboidLocationIterator(World world, int x1, int y1, int z1, int x2, int y2, int z2) {
+            this.world = world;
+            this.baseX = x1;
+            this.baseY = y1;
+            this.baseZ = z1;
+            this.sizeX = Math.abs(x2 - x1) + 1;
+            this.sizeY = Math.abs(y2 - y1) + 1;
+            this.sizeZ = Math.abs(z2 - z1) + 1;
+            this.z = 0;
+            this.y = 0;
+            this.x = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return this.x < this.sizeX && this.y < this.sizeY && this.z < this.sizeZ;
+        }
+
+        @Override
+        public Location next() {
+            Location location = new Location(this.world, (double) (this.baseX + this.x), (double) (this.baseY + this.y), (double) (this.baseZ + this.z));
+            if (++this.x >= this.sizeX) {
+                this.x = 0;
+                if (++this.y >= this.sizeY) {
+                    this.y = 0;
+                    ++this.z;
+                }
+            }
+            return location;
+        }
+
+        @Override
+        public void remove() throws UnsupportedOperationException {
+            throw new UnsupportedOperationException();
+        }
+    }
+
 }

@@ -121,10 +121,13 @@ public class CommandFramework implements CommandExecutor {
             config.set(command.name() + ".ALIASES", command.aliases().length > 0 ? command.aliases() : "No available Aliases.");
             config.set(command.name() + ".USAGE", command.usage().isEmpty() ? "No available usage." : command.usage());
             config.set(command.name() + ".DESCRIPTION", command.description().isEmpty() ? "No available description" : command.description());
-            if (FrozedLib.INSTANCE.isExcludeCommands()){
-                config.set(command.name() + ".STATUS", FrozedLib.INSTANCE.getExcludeCommandsList().contains(command.name()) ? "DISABLED" : "ENABLED");
-            }
+//            if (FrozedLib.INSTANCE.isExcludeCommands()) {
+//                config.set(command.name() + ".STATUS", FrozedLib.INSTANCE.getExcludeCommandsList().contains(command.name()) ? "DISABLED" : "ENABLED");
+//            }
         });
+        if (FrozedLib.INSTANCE.isExcludeCommands()) {
+            config.set("EXCLUDE-COMMANDS", FrozedLib.INSTANCE.getExcludeCommandsList());
+        }
         config.set("TOTAL-REGISTER-COMMANDS", config.getKeys(false).size());
         try {
             config.save(file.getFile());

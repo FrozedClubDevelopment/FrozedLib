@@ -50,6 +50,7 @@ club\frozed\lib\discord\DiscordWebhook$EmbedObject.class
 club\frozed\lib\discord\JavaCommands$1.class
 club\frozed\lib\chat\Clickable$1.class
 club\frozed\lib\commands\BukkitCommand.class
+club\frozed\lib\cuboid\Cuboid$CuboidLocationIterator.class
 club\frozed\lib\FrozedLib.class
 club\frozed\lib\item\ItemCreator.class
 club\frozed\lib\menu\MenuUpdateTask.class
